@@ -54,7 +54,8 @@ router.post(
     } catch (error) {
       //for any error
       console.error(error.message);
-      res.status(500).send("Internal Server Error");
+      //res.status(500).send("Internal Server Error");
+      res.status(500).json({ success: false, error: "Internal Server Error" });
     }
   }
 );
@@ -67,6 +68,7 @@ router.post(
   ],
   async (req, res) => {
     //If there are errors,return Bad Request and the errors
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -97,7 +99,8 @@ router.post(
       res.json({ success, authtoken: authtoken });
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Internal Server Error");
+      //res.status(500).send("Internal Server Error");
+      res.status(500).json({ success: false, error: "Internal Server Error" });
     }
   }
 );
